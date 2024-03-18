@@ -48,9 +48,16 @@ public class FgoServiceImpl implements FgoService {
 
 	public ArrayList<ServantInfo> getServantData(String className) throws IOException {
 		ArrayList<ServantInfo> saberInfoList = new ArrayList<>();
-		String apiUrl = "https://api.atlasacademy.io/basic/JP/servant/search?className=" + className;
+		String apiUrl = "https://api.atlasacademy.io/basic/KR/servant/search?className=" + className;
+
+//		String jpApiUrl = "https://api.atlasacademy.io/basic/JR/servant/search?className=" + className;
+
 		try {
 			URL url = new URL(apiUrl);
+//			if (mapper.SqlCheck(className) > 0) {
+//				System.out.println("오는지확인");
+//				url = new URL(jpApiUrl);
+//			}
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 
@@ -90,11 +97,11 @@ public class FgoServiceImpl implements FgoService {
 						mapper.SaveServantData(info);
 						saberInfoList.add(info);
 					} else {
-						System.out.println("네이스~");
+//						System.out.println("네이스~");
 						saberInfoList = mapper.getData(className);
 					}
 				}
-			} else {
+			}  else {
 				System.out.println("Failed to fetch data from the URL. Response code: " + responseCode);
 			}
 
@@ -113,7 +120,6 @@ public class FgoServiceImpl implements FgoService {
 			URL url = new URL(apiUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
-
 			int responseCode = connection.getResponseCode();
 //	        else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
 //	        	apiUrl = "https://api.atlasacademy.io/nice/JP/servant/" + id;
