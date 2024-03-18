@@ -1,0 +1,151 @@
+@charset "UTF-8";
+
+body {
+    background-color:  #555; /* 검정색 */
+    padding: 20px; /* 페이지 여백 설정 */
+    color: #fff
+}
+h1 {
+	color: #fff; /* 흰색 글씨 */
+    margin-top: 20px; /* 제목 위 여백 추가 */
+    margin-bottom: 20px; /* 제목 아래 여백 추가 */
+}
+legend {
+    padding: 5px 10px; /* 범례 패딩 설정 */
+    border: 1px solid #000; /* 범례 테두리 설정 */
+    background-color: #fff; /* 범례 배경색을 흰색으로 설정 */
+}
+table {
+    width: 100%; /* 테이블을 화면 너비에 맞춤 */
+    border-collapse: collapse; /* 테이블 간격 제거 */
+}
+td {
+    padding: 10px; /* 셀 안 여백 설정 */
+    border: 1px solid #000; /* 셀 테두리 설정 */
+}
+
+fieldset {
+	width: 1000px; /* 필요에 따라 원하는 가로 너비로 조정 */
+	margin: auto; /* 가운데 정렬을 위해 margin을 auto로 설정합니다. */
+	text-align: center; /* legend 요소의 텍스트를 가운데로 정렬합니다. */
+	border: none; /* 테두리 없애기 */
+	/*     border: none; 필요에 따라 fieldset의 테두리를 없앨 수 있습니다. */
+}
+
+#imgg {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+#saber {
+	width: 50px;
+	height: 100px
+}
+  .img {
+    width: 200px; /* 이미지의 초기 크기 */
+/*     height: 200px; */
+    margin: 5px; /* 이미지 간의 간격 설정 */
+    transition: transform 0.3s ease; /* 변환 효과에 대한 전환을 부드럽게 만듭니다. */
+  	border: 3px solid blue;
+  	border-radius: 10000px;
+  }
+
+  .img:hover {
+    transform: scale(1.2); /* 이미지를 1.2배로 확대합니다. */
+  }
+
+
+.centered-text {
+	text-align: center; /* 텍스트를 가운데로 정렬합니다. */
+}
+
+.horizontal-list {
+	display: flex; /* 가로로 나열하도록 설정합니다. */
+	justify-content: center; /* 가로 중앙 정렬합니다. */
+}
+.horizontal-list img {
+    width: 170px; /* 이미지 폭 설정 */
+    height: 300px; /* 이미지 높이 설정 */
+}
+
+.horizontal-list li {
+	margin: 10 10px; /* 리스트 아이템 간의 간격을 조정합니다. */
+	list-style: none;
+}
+
+.servant-info {
+	display: inline-block;
+	text-align: center;
+	margin: 10px;
+	width: 15%; /* 5개의 칸을 가지도록 폭 설정 */
+	vertical-align: top; /* 맨 위 정렬 */
+}
+.servant-info img {
+    max-width: 100px; /* 서번트 이미지 최대 너비 설정 */
+    height: auto; /* 이미지 높이 자동 조정 */
+}
+
+.legend {
+	width: 100%; /* legend의 너비를 100%로 설정 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    position: absolute; /* 부모 요소인 .legend를 relative로 설정 */
+    left: 0; /* 왼쪽에 위치 */
+    top: 50%; /* 상단에 위치 */
+    transform: translateY(-50%); /* 수직 가운데 정렬 */
+    color: red;
+}
+legend.centered {
+	width: 1000px; /* legend의 너비를 100%로 설정 */
+	background-color:  rgb(10, 0, 128);
+	margin: 0; /* 여백 제거 */
+	padding: 3; /* 패딩 제거 */
+}
+
+.legend fieldset {
+	
+	position: absolute; /* position 속성 추가 */
+	display: inline-block; /* 인라인 블록 요소로 설정하여 한 줄에 표시 */
+	margin: 0; /* 여백 제거 */
+	padding: 0; /* 패딩 제거 */
+	border: none; /* 테두리 제거 */
+}
+.legend5 {
+    background-color: #e9ecef; /* SSR 배경색 설정 */
+}
+.legend5 span.centered {
+	background-color: blue;
+    color: gold; /* 텍스트 색상을 파란색으로 설정 */
+    width: 1000px;
+}
+.legend4 {
+    background-color: #dee2e6; /* SR 배경색 설정 */
+}
+.legend4 span.centered {
+	background-color: blue;
+    color: gold; /* 텍스트 색상을 파란색으로 설정 */
+}
+.legend3 {
+    background-color: #ced4da; /* R 배경색 설정 */
+}
+.legend3 span.centered {
+	background-color: blue;
+    color:silver; /* 텍스트 색상을 파란색으로 설정 */
+}
+
+.legend2 {
+    background-color: #adb5bd; /* UC 배경색 설정 */
+}
+.legend2 span.centered {
+	background-color: blue;
+    color: #56332F; /* 텍스트 색상을 파란색으로 설정 */
+}
+
+.legend1 {
+    background-color: #6c757d; /* C 배경색 설정 */
+}
+
+.legend1 span.centered {
+	background-color: blue;
+	
+	color: #56332F;
+}
