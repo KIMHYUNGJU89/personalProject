@@ -15,4 +15,7 @@ public interface FgoMapper {
 	public ArrayList<ServantInfo> getData(String className);
 	public String getId(int id);
 	public ArrayList<ServantInfo> getDetail(int id);
+	public void SaveJsonData(ServantInfo info);
+	public int CountJsonData(int id);
+	public String SelectJsonData(int id);
 }

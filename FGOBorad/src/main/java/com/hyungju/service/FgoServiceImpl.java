@@ -122,31 +122,38 @@ public class FgoServiceImpl implements FgoService {
 	public ServantDetail getServantDetail(int id) throws IOException {
 		ServantDetail ServantDetailList = new ServantDetail();
 		String apiUrl = "https://api.atlasacademy.io/nice/KR/servant/" + id;
+		String jsonData;
 		try {
 			URL url = new URL(apiUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			int responseCode = connection.getResponseCode();
-//	        else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
-//	        	apiUrl = "https://api.atlasacademy.io/nice/JP/servant/" + id;
-//	        	url = new URL(apiUrl);
-//	        	connection = (HttpURLConnection) url.openConnection();
-//	        	connection.setRequestMethod("GET");
-//	        	responseCode = connection.getResponseCode();
-//                
-//            }
 			if (responseCode == HttpURLConnection.HTTP_OK) {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-				StringBuilder response = new StringBuilder();
-				String line;
-				while ((line = reader.readLine()) != null) {
-					response.append(line);
+
+				
+				if(mapper.CountJsonData(id) == 1) {
+					
+					jsonData = mapper.SelectJsonData(id);
+					System.out.println("데이터베이스 제이슨데이터쓰겠음");
+				}else {
+					BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					StringBuilder response = new StringBuilder();
+					String line;
+					while ((line = reader.readLine()) != null) {
+						response.append(line);
+					}
+					reader.close();
+					// 제이슨을 스트링열로 전환
+					jsonData = response.toString();
+					ServantInfo info = new ServantInfo();
+					info.setId(id);
+					info.setJsonData(jsonData);
+					System.out.println("제이슨데이터 데이터베이스에저장");
+					mapper.SaveJsonData(info);
 				}
-				reader.close();
-				// 제이슨을 스트링열로 전환
-				String jsonData = response.toString();
 				ObjectMapper objectmapper = new ObjectMapper();
 				System.out.println("제이슨데이터:" + jsonData);
+				
 				try {
 					// 제이슨 문자열을 해당 객체로 변환
 					ServantDetailList = objectmapper.readValue(jsonData, ServantDetail.class);
@@ -156,19 +163,32 @@ public class FgoServiceImpl implements FgoService {
 				System.out.println("다 들어갔니?:" + ServantDetailList);
 				return ServantDetailList;
 			} else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
-				apiUrl = "https://api.atlasacademy.io/nice/JP/servant/" + id;
-				url = new URL(apiUrl);
-				connection = (HttpURLConnection) url.openConnection();
-				connection.setRequestMethod("GET");
-				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-				StringBuilder response = new StringBuilder();
-				String line;
-				while ((line = reader.readLine()) != null) {
-					response.append(line);
+
+				if(mapper.CountJsonData(id) == 1) {
+					jsonData = mapper.SelectJsonData(id);
+					System.out.println("데이터베이스 제이슨데이터쓰겠음");
+				}else{
+					apiUrl = "https://api.atlasacademy.io/nice/JP/servant/" + id;
+					url = new URL(apiUrl);
+					connection = (HttpURLConnection) url.openConnection();
+					connection.setRequestMethod("GET");
+					BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					StringBuilder response = new StringBuilder();
+					String line;
+					while ((line = reader.readLine()) != null) {
+						response.append(line);
+					}
+					reader.close();
+					// 제이슨을 스트링열로 전환
+					jsonData = response.toString();
+					ServantInfo info = new ServantInfo();
+					info.setId(id);
+					info.setJsonData(jsonData);
+					System.out.println("제이슨데이터 데이터베이스에저장");
+					mapper.SaveJsonData(info);
 				}
-				reader.close();
-				// 제이슨을 스트링열로 전환
-				String jsonData = response.toString();
+				
+					
 				ObjectMapper objectmapper = new ObjectMapper();
 //				System.out.println("제이슨데이터:" + jsonData);
 				try {

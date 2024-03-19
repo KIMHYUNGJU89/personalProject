@@ -22,4 +22,14 @@
 	<select id="getId" resultType="String">
 		select name from servantlist where id like #{id}
 	</select>
+	<insert id="SaveJsonData">
+		insert into JsonDataList (id,JsonData) values (#{id},#{JsonData})
+	</insert>
+	<select id="CountJsonData" resultType="int">
+		select count(*) from JsonDataList where id = #{id}
+	</select>
+	<select id="SelectJsonData" resultType="String">
+		select JsonData from JsonDataList where id = #{id}
+	</select>
+	
 </mapper>

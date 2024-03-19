@@ -9,6 +9,7 @@ public class ServantInfo {
 	private String className;
 	private int rarity;
 	private String face;
+	private String JsonData;
 	
 //	public ServantInfo(int id,String name,int rarity,String face,String className) {
 //		this.id = id;

@@ -8,6 +8,7 @@ className varchar(20),
 rarity int,
 face varchar(200)
 );
+
 select * from servantlist;
 drop table servantlist;
 select * from servantlist where className like 'archer';
@@ -17,3 +18,13 @@ select Count(*) from servantlist where className='archer';
 select Count(*) from servantlist where rarity=2 and className = 'archer';
 select Count(*) from servantlist ;
 select name from servantlist where id like 100100;
+
+create table JsonDataList(
+`no` int primary key auto_increment,
+`id` int,
+`JsonData` mediumtext,
+`date` timestamp default current_timestamp
+);
+select * from JsonDataList;
+insert into JsonDataList (`id`,`JsonData`) values (100100,dsfasfssafs);
+drop table JsonDataList;
