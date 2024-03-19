@@ -47,17 +47,25 @@ public class FgoServiceImpl implements FgoService {
 	}
 
 	public ArrayList<ServantInfo> getServantData(String className) throws IOException {
-		ArrayList<ServantInfo> saberInfoList = new ArrayList<>();
-		String apiUrl = "https://api.atlasacademy.io/basic/KR/servant/search?className=" + className;
-
-//		String jpApiUrl = "https://api.atlasacademy.io/basic/JR/servant/search?className=" + className;
+		ArrayList<ServantInfo> mergedList = new ArrayList<>();
+		String krApiUrl = "https://api.atlasacademy.io/basic/KR/servant/search?className=" + className;
+		String jpApiUrl = "https://api.atlasacademy.io/basic/JP/servant/search?className=" + className;
 
 		try {
+			mergedList.addAll(getServantDataFromAPI(className, krApiUrl));
+			mergedList.addAll(getServantDataFromAPI(className, jpApiUrl));
+			mergedList.removeAll(mapper.getData(className));
+			mergedList.addAll(mapper.getData(className));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mergedList;
+	}
+
+	private ArrayList<ServantInfo> getServantDataFromAPI(String className, String apiUrl) throws IOException {
+		ArrayList<ServantInfo> servantInfoList = new ArrayList<>();
+		try {
 			URL url = new URL(apiUrl);
-//			if (mapper.SqlCheck(className) > 0) {
-//				System.out.println("오는지확인");
-//				url = new URL(jpApiUrl);
-//			}
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 
@@ -74,34 +82,32 @@ public class FgoServiceImpl implements FgoService {
 				Gson gson = new Gson();
 				JsonArray jsonArray = gson.fromJson(jsonData, JsonArray.class);
 
-				// 각 항목을 확인하고 추가할지 결정하기 위해 id로 데이터베이스를 확인합니다.
+				// 데이터베이스에 해당 id가 있는지 확인합니다.
 				for (int i = 0; i < jsonArray.size(); i++) {
 					JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
 					int id = jsonObject.get("id").getAsInt();
 
-					// 데이터베이스에 해당 id가 있는지 확인합니다.
+					// 데이터베이스에 없는 경우에만 추가합니다.
 					if (!SqlCheck(id)) {
-						// 데이터베이스에 없는 경우에만 추가합니다.
 						String name = jsonObject.get("name").getAsString();
 						className = jsonObject.get("className").getAsString();
 						int rarity = jsonObject.get("rarity").getAsInt();
 						String face = jsonObject.get("face").getAsString();
 
-						ServantInfo info = new ServantInfo();
-						info.setId(id);
-						info.setName(name);
-						info.setClassName(className);
-						info.setRarity(rarity);
-						info.setFace(face);
+						if (!servantInfoList.stream().anyMatch(info -> info.getId() == id)) {
+							ServantInfo info = new ServantInfo();
+							info.setId(id);
+							info.setName(name);
+							info.setClassName(className);
+							info.setRarity(rarity);
+							info.setFace(face);
 
-						mapper.SaveServantData(info);
-						saberInfoList.add(info);
-					} else {
-//						System.out.println("네이스~");
-						saberInfoList = mapper.getData(className);
+							mapper.SaveServantData(info);
+							servantInfoList.add(info);
+						}
 					}
 				}
-			}  else {
+			} else {
 				System.out.println("Failed to fetch data from the URL. Response code: " + responseCode);
 			}
 
@@ -110,7 +116,7 @@ public class FgoServiceImpl implements FgoService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return saberInfoList;
+		return servantInfoList;
 	}
 
 	public ServantDetail getServantDetail(int id) throws IOException {
