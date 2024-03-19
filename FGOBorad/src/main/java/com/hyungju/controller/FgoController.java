@@ -32,9 +32,9 @@ public class FgoController {
 	@GetMapping("/ServantDetail")
 	public void servantDetail(int id,Model model) throws IOException {
 		System.out.println("컨트롤러들어오는지 확인중2");
-		model.addAttribute("name",service.getId(id));
+		System.out.println(serviceImpl.getServantDetail(id));
 		model.addAttribute("ascension",id);
-		model.addAttribute("skillname",serviceImpl.getServantDetail(id));
+		model.addAttribute("ServantData",serviceImpl.getServantDetail(id));
 	}
 	
 

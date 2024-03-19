@@ -10,5 +10,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown =true)
 public class ServantDetail {
 	public List<Skills> skills;
-
+	public String name;
+	public ExtraAssets extraAssets;
+	
 }

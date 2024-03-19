@@ -46,28 +46,28 @@
     </script>
 
     <div class="centered-text">
-        <h1>${name}</h1>
+        <h1>${ServantData.name}</h1>
     </div>
     
     <div id=imgg>
-		<img class="img" src="https://static.atlasacademy.io/JP/CharaGraph/${ascension}/${ascension}a@1.png">
-		<img class="img" src="https://static.atlasacademy.io/JP/CharaGraph/${ascension}/${ascension}a@2.png">
-		<img class="img" src="https://static.atlasacademy.io/JP/CharaGraph/${ascension}/${ascension}b@1.png">
-		<img class="img" src="https://static.atlasacademy.io/JP/CharaGraph/${ascension}/${ascension}b@2.png">
+		<img class="img" src="${ServantData.extraAssets.charaGraph.ascension._1}">
+		<img class="img" src="${ServantData.extraAssets.charaGraph.ascension._2}">
+		<img class="img" src="${ServantData.extraAssets.charaGraph.ascension._3}">
+		<img class="img" src="${ServantData.extraAssets.charaGraph.ascension._4}">
 	</div>
 	<br>
 	<fieldset>
-		<img src="${skillname.skills.get(0).icon}">
+		<img src="${ServantData.skills.get(0).icon}">
 		<br>
-		${skillname.skills.get(0).name}
+		${ServantData.skills.get(0).name}
 		<br>
-		<img src="${skillname.skills.get(1).icon}">
+		<img src="${ServantData.skills.get(1).icon}">
 		<br>
-		${skillname.skills.get(1).name}
+		${ServantData.skills.get(1).name}
 		<br>
-		<img src="${skillname.skills.get(2).icon}">
+		<img src="${ServantData.skills.get(2).icon}">
 		<br>
-		${skillname.skills.get(2).name}
+		${ServantData.skills.get(2).name}
 	</fieldset>
 </body>
 </html>

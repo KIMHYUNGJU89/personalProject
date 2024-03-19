@@ -29,39 +29,19 @@ public class FgoServiceImpl implements FgoService {
 	private FgoMapper mapper;
 	ArrayList<ServantInfo> saberInfoList = new ArrayList<>();
 
-	@Override
-	public String getId(int id) {
-		return mapper.getId(id);
-	}
 
-	// sql에서 맵퍼.카운트 불러와서 값 있는지 없는지 체크
+	// 서번트 기본정보 테이블 id체크 메서드
 	public boolean SqlCheck(int id) {
 		if (mapper.DataCheck(id) == 0) {
 			// 데이터베이스(테이블 안에 컬럼)에 해당 id 값이 없을 경우 실패
 			return false;
 		} else {
 			// 값이 있을 경우 진실
-
 			return true;
 		}
 	}
-
-	public ArrayList<ServantInfo> getServantData(String className) throws IOException {
-		ArrayList<ServantInfo> mergedList = new ArrayList<>();
-		String krApiUrl = "https://api.atlasacademy.io/basic/KR/servant/search?className=" + className;
-		String jpApiUrl = "https://api.atlasacademy.io/basic/JP/servant/search?className=" + className;
-
-		try {
-			mergedList.addAll(getServantDataFromAPI(className, krApiUrl));
-			mergedList.addAll(getServantDataFromAPI(className, jpApiUrl));
-			mergedList.removeAll(mapper.getData(className));
-			mergedList.addAll(mapper.getData(className));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return mergedList;
-	}
-
+	
+	//서번트 기본정보를 API주소를 통해 받아오고 데이터베이스에 정보가있다면 데이터베이스에서 받아오게하는 메서드 , api는 최종출력함수에서 변수를만들고 여기서 매개변수로 받아옴.
 	private ArrayList<ServantInfo> getServantDataFromAPI(String className, String apiUrl) throws IOException {
 		ArrayList<ServantInfo> servantInfoList = new ArrayList<>();
 		try {
@@ -212,4 +192,20 @@ public class FgoServiceImpl implements FgoService {
 		return ServantDetailList;
 	}
 
+	//최종데이터출력 메서드
+	public ArrayList<ServantInfo> getServantData(String className) throws IOException {
+		ArrayList<ServantInfo> mergedList = new ArrayList<>();
+		String krApiUrl = "https://api.atlasacademy.io/basic/KR/servant/search?className=" + className;
+		String jpApiUrl = "https://api.atlasacademy.io/basic/JP/servant/search?className=" + className;
+		
+		try {
+			mergedList.addAll(getServantDataFromAPI(className, krApiUrl));
+			mergedList.addAll(getServantDataFromAPI(className, jpApiUrl));
+			mergedList.removeAll(mapper.getData(className));
+			mergedList.addAll(mapper.getData(className));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mergedList;
+	}
 }
