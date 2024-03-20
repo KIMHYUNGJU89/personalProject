@@ -3,31 +3,32 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hyungju.mapper.FgoMapper">
+	<!-- 	api에서 가져온정보를 데이터베이스에 넣는 sql문 -->
 	<insert id="SaveServantData" parameterType="com.hyungju.api.ServantInfo">
 		insert into servantlist (id,name,className,rarity,face) values 
 		(#{id},#{name},#{className},#{rarity},#{face})
 	</insert>
+	<!-- 	api에서 가져온 데이터가 데이터베이스에 있는지 확인하는 sql문 -->
 	<select id="DataCheck" resultType="int">
 		select count(*) from servantlist where id = #{id}
 	</select>
-	<select id="idList" resultType="String">
-		select id from servantlist where className like #{className}
-	</select>
-	<select id="SqlCheck" resultType="int">
-		select count(*) from servantlist where className= #{className}
-	</select>
+	<!-- 	클래스를 기준으로 객체를 나누고 정보를 가져오기위한 위한 sql문	 -->
 	<select id="getData" resultType="com.hyungju.api.ServantInfo">
 		select * from servantlist where className like #{className}
 	</select>
-	<select id="getId" resultType="String">
-		select name from servantlist where id like #{id}
+	<!-- 	상세정보의 API내용이 기본정보API내용과 일치하지않는부분이있어서 유저에게 혼동을 주지않기위해 각 개체의 기본API정보를 데이터베이스에서 가져오기위한 sql문 -->
+	<select id="getEachData" resultType="com.hyungju.api.ServantInfo">
+		select * from servantlist where id = #{id}
 	</select>
+	<!-- 	제이슨데이터를 데이터베이스에 문자열로 저장하기위한 sql문  -->
 	<insert id="SaveJsonData">
 		insert into JsonDataList (id,JsonData) values (#{id},#{JsonData})
 	</insert>
+	<!-- 	중복된 제이슨데이터를 넣지않기위해서 만든 sql문 -->
 	<select id="CountJsonData" resultType="int">
 		select count(*) from JsonDataList where id = #{id}
 	</select>
+	<!-- 	제이슨데이터 저장테이블에서 아이디를 통해 검색해서 제이슨데이터를 뽑아오기위한 sql문  -->
 	<select id="SelectJsonData" resultType="String">
 		select JsonData from JsonDataList where id = #{id}
 	</select>

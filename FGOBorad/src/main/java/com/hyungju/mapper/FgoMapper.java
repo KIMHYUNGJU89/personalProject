@@ -10,10 +10,8 @@ import com.hyungju.api.ServantInfo;
 public interface FgoMapper {
 	public void SaveServantData(ServantInfo info);
 	public int DataCheck(int id);
-	public ArrayList<String> idList(String className);
-	public int SqlCheck(String className);
 	public ArrayList<ServantInfo> getData(String className);
-	public String getId(int id);
+	public ServantInfo getEachData(int id);
 	public ArrayList<ServantInfo> getDetail(int id);
 	public void SaveJsonData(ServantInfo info);
 	public int CountJsonData(int id);
