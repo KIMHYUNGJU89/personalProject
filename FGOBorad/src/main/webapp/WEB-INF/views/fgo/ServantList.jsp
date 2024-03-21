@@ -38,7 +38,7 @@
                 <span class="centered"> ★★★★★ SSR </span>
                 <br>
                 <c:forEach var="ServantList" items="${servant}">
-                    <c:if test="${ServantList.rarity == 5}">
+                    <c:if test="${ServantList.rarity == 5 && ServantList.id != 9935530}">
                         <div class="servant-info" data-rarity="${ServantList.rarity}">
                         <a href="${cp}/fgo/ServantDetail?id=${ServantList.id}"><img alt="서번트들" src="${ServantList.face}"> </a>
                         <br> <br>
