@@ -30,7 +30,8 @@
 					$(".infos").slideDown(); // 이미지가 아래서부터 위로 슬라이드하면서 나타나는 애니메이션
 				} else {
 					$(".infos").slideUp(); // 이미지가 위에서부터 아래로 슬라이드하면서 사라지는 애니메이션
-					$(".wholeClassCards").fadeOut(); // 높이를 서서히 변경하여 요소를 사라지게 함
+					$(".wholeClassCards").fadeOut(); 
+					$("#Stories").fadeOut();
 				}
 			});
 			$("#servantcard").click(function() {
@@ -39,6 +40,14 @@
 					$(".wholeClassCards").fadeIn(); 
 				} else {
 					$(".wholeClassCards").fadeOut(); // 높이를 서서히 변경하여 요소를 사라지게 함
+				}
+			});
+			$("#fgoStory").click(function() {
+				// 이미지가 나타나 있는지 확인하고 나타나지 않았으면 fadeIn(), 나타나 있으면 fadeOut() 적용
+				if ($("#Stories").is(":hidden")) {
+					$("#Stories").slideDown(); // 이미지가 아래서부터 위로 슬라이드하면서 나타나는 애니메이션
+				} else {
+					$("#Stories").fadeOut(); // 높이를 서서히 변경하여 요소를 사라지게 함
 				}
 			});
 		});
@@ -112,6 +121,16 @@
 					src="${cp}/resources/beast.jpg"></a></td>
 		</tr>
 	</table>
+	<div class="infos">
+		<h3 class="info" id="fgoStory">스토리</h3>
+	</div>
+		<table class="classCard" id="Stories" style= display:none;>		
+		<tr>
+		<td class="Story_text"><a href="${cp}/fgo/OTT">[ 1부 ]</a></td>
+		<td class="Stroy_text"><a href="${cp}/fgo/EOR">[ 1.5부 ]</a></td>
+		<td class="Story_text"><a href="${cp}/fgo/CIR">[ 2부 ]</a></td>
+		</tr>
+		</table>
 	<div class="infos">
 		<h3 class="info">진행중인 이벤트</h3>
 	</div>

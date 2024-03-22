@@ -34,7 +34,18 @@ public class FgoController {
 		System.out.println("컨트롤러들어오는지 확인중2");
 		model.addAttribute("ServantData",serviceImpl.getServantDetail(id));
 	}
-	
+	@GetMapping("/OTT")
+	public void Observer_on_Timeless_Temple(){
+		
+	}
+	@GetMapping("/EOR")
+	public void Epic_of_Remnant(){
+		
+	}
+	@GetMapping("/CIL")
+	public void Cosmos_in_the_Lostbelt(){
+		
+	}
 
 	
 	
