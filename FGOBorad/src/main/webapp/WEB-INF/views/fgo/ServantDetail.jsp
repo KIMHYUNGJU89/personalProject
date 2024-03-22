@@ -84,7 +84,11 @@
         
         
     </script>
-
+	<div class="centered-text">
+	<a href="${cp}/"><img alt="로고" src="${cp}/resources/logo.jpg"></a>
+	</div>
+	<br>
+	<br>
     <div class="centered-text">
         <h1>${ServantData.name}</h1>
     </div>
